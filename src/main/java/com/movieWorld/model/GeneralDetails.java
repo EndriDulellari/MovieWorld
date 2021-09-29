@@ -1,10 +1,13 @@
 package com.movieWorld.model;
 
 import com.movieWorld.enums.Gender;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import java.util.Date;
 
-public abstract class Person {
+@Data
+@AllArgsConstructor
+public class Person {
 
     private String firstName;
     private String lastName;
