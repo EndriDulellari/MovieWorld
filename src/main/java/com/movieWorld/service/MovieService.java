@@ -1,6 +1,6 @@
 package com.movieWorld.service;
 
-import com.movieWorld.exceptions.MovieNotFoundException;
+import com.movieWorld.exceptions.RecordNotFoundException;
 import com.movieWorld.model.Movie;
 import com.movieWorld.repository.MovieRepository;
 import lombok.AllArgsConstructor;
@@ -20,11 +20,11 @@ public class MovieService {
 
     public Movie getMovieById(String id){
         return movieRepository.findById(id).orElseThrow(
-                () -> new MovieNotFoundException("Movie by Id " + id + " not found!"));
+                () -> new RecordNotFoundException("Movie by Id " + id + " not found!"));
     }
     public Movie getMovieByName(String name){
         return movieRepository.findMovieByName(name).orElseThrow(
-                () -> new MovieNotFoundException("Movie by Name " + name + " not found!"));
+                () -> new RecordNotFoundException("Movie by Name " + name + " not found!"));
     }
 
     public Movie addMovie (Movie movie){
