@@ -14,21 +14,21 @@ public class ActorService {
 
     private final ActorRepository repository;
 
-    public List<Actor> getActors(){
+    public List<Actor> getActors() {
         return repository.findAll();
     }
 
-    public Actor findActorById (String id){
+    public Actor findActorById(String id) {
         return repository.findActorById(id).orElseThrow(
                 () -> new RecordNotFoundException("Actor by Id " + id + "not found!")
         );
     }
 
-    public Actor addOrUpdateActor (Actor newActor){
+    public Actor addOrUpdateActor(Actor newActor) {
         return repository.save(newActor);
     }
 
-    public void deleteActor(String id){
+    public void deleteActor(String id) {
         repository.deleteById(id);
     }
 }

@@ -14,41 +14,46 @@ import java.util.List;
 @AllArgsConstructor
 public class MovieController {
 
-    private final MovieService movieService;
+    private final MovieService service;
 
     @GetMapping("/all")
     public ResponseEntity<List<Movie>> getMovies(){
-        List<Movie> movies = movieService.getMovies();
+        List<Movie> movies = service.getMovies();
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Movie> getMovieById(@PathVariable("id") String id){
-        Movie movie = movieService.getMovieById(id);
+        Movie movie = service.getMovieById(id);
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
     @GetMapping("/name/{name}")
     public ResponseEntity<Movie> getMovieByName(@PathVariable("name") String name){
-        Movie movie = movieService.getMovieByName(name);
+        Movie movie = service.getMovieByName(name);
         return new ResponseEntity<>(movie, HttpStatus.OK);
+    }
+    @GetMapping("")
+    public ResponseEntity<List<Movie>> filterActors(@RequestParam(required = false) String name, @RequestParam(value = "country", required = false) String country) {
+        List<Movie> movies = service.filterMovies(name, country);
+        return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<Movie> addMovie (@RequestBody Movie newMovie){
-        Movie movie = movieService.addMovie(newMovie);
+        Movie movie = service.addMovie(newMovie);
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
     @PutMapping("/update")
     public ResponseEntity<Movie> updateMovie (@RequestBody Movie newMovie){
-        Movie movie = movieService.updateMovie(newMovie);
+        Movie movie = service.updateMovie(newMovie);
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
     @PutMapping("/delete/{id}")
     public ResponseEntity<Movie> deleteMovie (@PathVariable("id") String id){
-        movieService.deleteMovie(id);
+        service.deleteMovie(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
