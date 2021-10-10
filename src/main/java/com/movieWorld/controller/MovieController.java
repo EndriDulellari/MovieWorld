@@ -37,7 +37,6 @@ public class MovieController {
 
     @GetMapping("")
     public ResponseEntity<List<Movie>> filterMovies(@RequestParam Map<String, String> filters) {
-
         List<Movie> movies = service.filterMovies(filters);
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }

@@ -54,4 +54,13 @@ public class Movie {
         this.budget = budget;
         this.boxOffice = boxOffice;
     }
+    public Movie(String name, String plot, String budget, String boxOffice) {
+        this.name = name;
+        this.plot = plot;
+        this.budget = budget;
+        this.boxOffice = boxOffice;
+    }
+    public Movie() {
+
+    }
 }

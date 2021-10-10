@@ -26,19 +26,15 @@ public class MovieService {
     }
 
     public Movie getMovieById(String id) {
-        return repository.findById(id).orElseThrow(
-                () -> new RecordNotFoundException("Movie by Id " + id + " not found!"));
+        return repository.findById(id).orElseThrow(() -> new RecordNotFoundException("Movie by Id " + id + " not found!"));
     }
 
     public Movie getMovieByName(String name) {
-        return repository.findMovieByName(name).orElseThrow(
-                () -> new RecordNotFoundException("Movie by Name " + name + " not found!"));
+        return repository.findMovieByName(name).orElseThrow(() -> new RecordNotFoundException("Movie by Name " + name + " not found!"));
     }
 
     public List<Movie> filterMovies(Map<String, String> filters) {
-
         Query query = generateQuery(filters);
-
         return mongoTemplate.find(query, Movie.class);
     }
 
