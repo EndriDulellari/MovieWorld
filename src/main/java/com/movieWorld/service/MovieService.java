@@ -1,21 +1,20 @@
 package com.movieWorld.service;
 
 import com.movieWorld.exceptions.RecordNotFoundException;
+import com.movieWorld.generic.GenericService;
 import com.movieWorld.model.Movie;
 import com.movieWorld.repository.MovieRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Service
 @AllArgsConstructor
-public class MovieService {
+public class MovieService extends GenericService {
 
     private final MovieRepository repository;
 
@@ -36,25 +35,6 @@ public class MovieService {
     public List<Movie> filterMovies(Map<String, String> filters) {
         Query query = generateQuery(filters);
         return mongoTemplate.find(query, Movie.class);
-    }
-
-    private Query generateQuery(Map<String, String> filters) {
-        Query query = new Query();
-        List<Criteria> criteria = checkFilter(filters);
-        if (!criteria.isEmpty())
-            query.addCriteria(new Criteria().andOperator(criteria.toArray(new Criteria[0])));
-        return query;
-    }
-
-    private List<Criteria> checkFilter(Map<String, String> filters) {
-        List<Criteria> criteria = new ArrayList<>();
-        for (Map.Entry<String, String> entry : filters.entrySet()) {
-            String filterName = entry.getKey();
-            String filterValue = entry.getValue();
-            if (filterValue != null && !filterValue.isEmpty())
-                criteria.add(Criteria.where(filterName).is(filterValue));
-        }
-        return criteria;
     }
 
     public Movie addMovie(Movie movie) {
